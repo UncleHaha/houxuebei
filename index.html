@@ -25,8 +25,21 @@
     /* 永久隐藏场景名 —— 满足需求 1 */
     #scene-name { position: absolute; top: 18vh; width: 100%; text-align: center; font-size: 2.8em; font-weight: 700; letter-spacing: 0.1em; display: none; }
     #timer { width: 100%; text-align: center; font-size: 14em; font-weight: bold; }
-    #duibian-box { display: flex; justify-content: space-around; align-items: center; width: auto; }
-    #timer-left, #timer-right { font-size: 14em; font-weight: bold; width: 50%; float: left; text-align: center; }
+    #duibian-box {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100vw;
+      max-width: 2000px;
+      gap: 20vw;
+      }
+   #timer-left, #timer-right {
+      font-size: 14em;
+      font-weight: bold;
+      text-align: center;
+      width: auto;                   
+      
+      }
     .buttons { position: absolute; bottom: 60px; width: 100%; text-align: center; }
     button {
       font-size: 1em; margin: 0 10px; padding: 10px 20px;
@@ -37,8 +50,8 @@
   </style>
 </head>
 <body>
-  <div id="controls"><button onclick="prevScene()">← 上一页</button></div>
-  <div id="navigation"><button onclick="nextScene()">下一页 →</button></div>
+  <div id="controls"><button onclick="prevScene()">←</button></div>
+  <div id="navigation"><button onclick="nextScene()">→</button></div>
 
   <div id="scene-name"></div>
   <div id="timer">00:00</div>
@@ -141,9 +154,9 @@
       if (isDuiBian) {
         // 对辩：显示双计时器，隐藏单计时器
         document.getElementById("timer").style.display = "none";
-        duibianBox.style.display = "block";
+        duibianBox.style.display = "flex";
         // 队伍缓冲不显示切换按钮（需求 3）
-        switchBtn.style.display = (scene.name === "队伍缓冲") ? "none" : "inline-block";
+        switchBtn.style.display = "inline-block";
 
         sideIndex = 0;
         sideTimes = [scene.sides[0].time, scene.sides[1].time];
@@ -220,15 +233,27 @@
     }
 
     function switchSides() {
-      const wasRunning = !!timerInterval;
-      if (wasRunning) { clearInterval(timerInterval); timerInterval = null; }
       if (!isDuiBian) return;
 
-      sideIndex = sideIndex === 0 ? 1 : 0;
-      updateDisplay();
+      const wasRunning = !!timerInterval;
+      if (wasRunning) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+     }
 
-      if (wasRunning) startTimer();
+    // 切换当前侧：0<->1
+    sideIndex = sideIndex === 0 ? 1 : 0;
+    updateDisplay();
+
+    // 关键：如果当前未在计时，按“切换”也会直接开始从新的一侧计时
+    if (!wasRunning) {
+      startTimer();
+    } else {
+      // 如果原本在计时，保持原有逻辑：切侧后继续跑
+      startTimer();
     }
+  }
+
 
     function nextScene() { if (currentIndex < SCENES.length - 1) loadScene(currentIndex + 1); }
     function prevScene() { if (currentIndex > 0) loadScene(currentIndex - 1); }
