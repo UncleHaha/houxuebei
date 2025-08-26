@@ -29,17 +29,16 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 100vw;
-      max-width: 2000px;
-      gap: 20vw;
-      }
+      width: clamp(640px, 85vw, 1600px);   /* 小屏不低于 640px，大屏不超过 1400px */
+      gap: clamp(6rem, 12vw, 16rem);       /* 间距在 4rem~12rem 之间随屏适配 */
+      margin: 0 auto;
+    }
    #timer-left, #timer-right {
-      font-size: 14em;
+      font-size: clamp(6rem, 14vw, 14rem);
       font-weight: bold;
       text-align: center;
-      width: auto;                   
-      
-      }
+      width: auto;
+    }
     .buttons { position: absolute; bottom: 60px; width: 100%; text-align: center; }
     button {
       font-size: 1em; margin: 0 10px; padding: 10px 20px;
