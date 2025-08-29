@@ -105,6 +105,17 @@
     let isDuiBian = false;
     let sideIndex = 0; // 0=正方，1=反方
     let sideTimes = [120, 120];
+    
+    // 保存每个场景的计时状态
+    const sceneState = new Map(); // key: index, value: { type:'single'|'duibian', currentTime?, sideTimes?, sideIndex? }
+    
+    function saveCurrentState() {
+      const state = isDuiBian
+        ? { type: 'duibian', sideTimes: [...sideTimes], sideIndex }
+        : { type: 'single', currentTime };
+      sceneState.set(currentIndex, state);
+    }
+
 
     const sceneName = document.getElementById("scene-name");
     const timerDisplay = document.getElementById("timer");
@@ -157,24 +168,35 @@
       }
 
 
-      // 普通/对辩切换
+      // 普通/对辩切换 + 恢复状态
       isDuiBian = scene.type === "duibian";
+      const saved = sceneState.get(index);
+      
       if (isDuiBian) {
-        // 对辩：显示双计时器，隐藏单计时器
         document.getElementById("timer").style.display = "none";
         duibianBox.style.display = "flex";
-        // 队伍缓冲不显示切换按钮（需求 3）
         switchBtn.style.display = "inline-block";
-
-        sideIndex = 0;
-        sideTimes = [scene.sides[0].time, scene.sides[1].time];
-        currentTime = 0;
+      
+        if (saved && saved.type === 'duibian') {
+          sideTimes = [...saved.sideTimes];
+          sideIndex = saved.sideIndex ?? 0;
+        } else {
+          sideIndex = 0;
+          sideTimes = [scene.sides[0].time, scene.sides[1].time];
+        }
+        currentTime = 0; // 对辩模式不使用单计时器
       } else {
         duibianBox.style.display = "none";
         switchBtn.style.display = "none";
         document.getElementById("timer").style.display = "block";
-        currentTime = scene.time;
+      
+        if (saved && saved.type === 'single') {
+          currentTime = saved.currentTime;
+        } else {
+          currentTime = scene.time;
+        }
       }
+
 
       document.body.style.backgroundImage = `url('${scene.background}')`;
       // sceneName.textContent = scene.name; // 已永久隐藏，无需赋值，但保留不影响
@@ -228,17 +250,20 @@
     }
 
     function resetTimer() {
-      clearInterval(timerInterval);
-      timerInterval = null;
-      const scene = SCENES[currentIndex];
-      if (isDuiBian) {
-        sideTimes = [scene.sides[0].time, scene.sides[1].time];
-        sideIndex = 0;
-      } else {
-        currentTime = scene.time;
+        clearInterval(timerInterval);
+        timerInterval = null;
+        const scene = SCENES[currentIndex];
+        if (isDuiBian) {
+          sideTimes = [scene.sides[0].time, scene.sides[1].time];
+          sideIndex = 0;
+          sceneState.set(currentIndex, { type:'duibian', sideTimes:[...sideTimes], sideIndex });
+        } else {
+          currentTime = scene.time;
+          sceneState.set(currentIndex, { type:'single', currentTime });
+        }
+        updateDisplay();
       }
-      updateDisplay();
-    }
+
 
     function switchSides() {
       if (!isDuiBian) return;
@@ -263,8 +288,19 @@
   }
 
 
-    function nextScene() { if (currentIndex < SCENES.length - 1) loadScene(currentIndex + 1); }
-    function prevScene() { if (currentIndex > 0) loadScene(currentIndex - 1); }
+      function nextScene() {
+    if (currentIndex < SCENES.length - 1) {
+      saveCurrentState();
+      loadScene(currentIndex + 1);
+    }
+  }
+  function prevScene() {
+    if (currentIndex > 0) {
+      saveCurrentState();
+      loadScene(currentIndex - 1);
+    }
+  }
+
 
     // ---- Minimal Self Tests (不会影响 UI) ----
     (function selfTests(){
