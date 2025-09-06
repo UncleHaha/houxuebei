@@ -71,29 +71,29 @@
 
   <audio id="alert-sound"></audio>
   <audio id="jazz-player" loop>
-    <source src="assets/sounds/classical.mp3" type="audio/mpeg" />
+    <source src="assets/sounds/Jazz2.mp3" type="audio/mpeg" />
   </audio>
 
   <script>
     const SCENES = [
       { name: "赛前准备", time: 1, background: "assets/images/1.jpg", alerts: [] },
-      { name: "开始", time: 1, background: "assets/images/22.jpg", alerts: [] },
-      { name: "申论", time: 180, background: "assets/images/23.jpg", alerts: [{time: 30, sound: "assets/sounds/30s.mp3"}, {time: 0, sound: "assets/sounds/Dindin.mp3"}] },
-      { name: "申论", time: 180, background: "assets/images/24.jpg", alerts: [{time: 30, sound: "assets/sounds/30s.mp3"}, {time: 0, sound: "assets/sounds/Dindin.mp3"}] },
-      { name: "对辩", type: "duibian", background: "assets/images/25.jpg", sides: [ {label: "正方", time: 120}, {label: "反方", time: 120} ], alerts: [{time: 30, sound: "assets/sounds/30s.mp3"}, {time: 0, sound: "assets/sounds/Dindin.mp3"}] },
-      { name: "申论", time: 180, background: "assets/images/26.jpg", alerts: [{time: 30, sound: "assets/sounds/30s.mp3"}, {time: 0, sound: "assets/sounds/Dindin.mp3"}] },
-      { name: "申论", time: 180, background: "assets/images/27.jpg", alerts: [{time: 30, sound: "assets/sounds/30s.mp3"}, {time: 0, sound: "assets/sounds/Dindin.mp3"}] },
-      { name: "对辩", type: "duibian", background: "assets/images/28.jpg", sides: [ {label: "正方", time: 120}, {label: "反方", time: 120} ], alerts: [{time: 30, sound: "assets/sounds/30s.mp3"}, {time: 0, sound: "assets/sounds/Dindin.mp3"}] },
-      { name: "申论", time: 180, background: "assets/images/29.jpg", alerts: [{time: 30, sound: "assets/sounds/30s.mp3"}, {time: 0, sound: "assets/sounds/Dindin.mp3"}] },
-      { name: "申论", time: 180, background: "assets/images/30.jpg", alerts: [{time: 30, sound: "assets/sounds/30s.mp3"}, {time: 0, sound: "assets/sounds/Dindin.mp3"}] },
-      { name: "对辩", type: "duibian", background: "assets/images/31.jpg", sides: [ {label: "正方", time: 120}, {label: "反方", time: 120} ], alerts: [{time: 30, sound: "assets/sounds/30s.mp3"}, {time: 0, sound: "assets/sounds/Dindin.mp3"}] },
-      { name: "中休", time: 120, background: "assets/images/32.jpg", alerts: [{time: 30, sound: "assets/sounds/30s.mp3"}, {time: 0, sound: "assets/sounds/Dindin.mp3"}] },
-      { name: "总结", time: 180, background: "assets/images/33.jpg", alerts: [{time: 30, sound: "assets/sounds/30s.mp3"}, {time: 0, sound: "assets/sounds/Dindin.mp3"}] },
-      { name: "总结", time: 180, background: "assets/images/34.jpg", alerts: [{time: 30, sound: "assets/sounds/30s.mp3"}, {time: 0, sound: "assets/sounds/Dindin.mp3"}] },
-      { name: "队伍缓冲", type: "duibian", background: "assets/images/35.jpg", sides: [ {label: "正方", time: 300}, {label: "反方", time: 300} ], alerts: [{time: 30, sound: "assets/sounds/30s.mp3"}, {time: 0, sound: "assets/sounds/Dindin.mp3"}] },
-      { name: "评审缓冲", time: 1, background: "assets/images/36.jpg", alerts: [] },
-      { name: "点评", time: 600, background: "assets/images/37.jpg", alerts: [{time: 30, sound: "assets/sounds/30s.mp3"}, {time: 0, sound: "assets/sounds/Dindin.mp3"}] },
-      { name: "补充", time: 120, background: "assets/images/38.jpg", alerts: [{time: 30, sound: "assets/sounds/30s.mp3"}, {time: 0, sound: "assets/sounds/Dindin.mp3"}] },
+      { name: "开始", time: 1, background: "assets/images/3.jpg", alerts: [] },
+      { name: "申论", time: 180, background: "assets/images/4.jpg", alerts: [{time: 30, sound: "assets/sounds/30s.mp3"}, {time: 0, sound: "assets/sounds/Dindin.mp3"}] },
+      { name: "申论", time: 180, background: "assets/images/5.jpg", alerts: [{time: 30, sound: "assets/sounds/30s.mp3"}, {time: 0, sound: "assets/sounds/Dindin.mp3"}] },
+      { name: "对辩", type: "duibian", background: "assets/images/6.jpg", sides: [ {label: "正方", time: 120}, {label: "反方", time: 120} ], alerts: [{time: 30, sound: "assets/sounds/30s.mp3"}, {time: 0, sound: "assets/sounds/Dindin.mp3"}] },
+      { name: "申论", time: 180, background: "assets/images/7.jpg", alerts: [{time: 30, sound: "assets/sounds/30s.mp3"}, {time: 0, sound: "assets/sounds/Dindin.mp3"}] },
+      { name: "申论", time: 180, background: "assets/images/8.jpg", alerts: [{time: 30, sound: "assets/sounds/30s.mp3"}, {time: 0, sound: "assets/sounds/Dindin.mp3"}] },
+      { name: "对辩", type: "duibian", background: "assets/images/9.jpg", sides: [ {label: "正方", time: 120}, {label: "反方", time: 120} ], alerts: [{time: 30, sound: "assets/sounds/30s.mp3"}, {time: 0, sound: "assets/sounds/Dindin.mp3"}] },
+      { name: "申论", time: 180, background: "assets/images/10.jpg", alerts: [{time: 30, sound: "assets/sounds/30s.mp3"}, {time: 0, sound: "assets/sounds/Dindin.mp3"}] },
+      { name: "申论", time: 180, background: "assets/images/11.jpg", alerts: [{time: 30, sound: "assets/sounds/30s.mp3"}, {time: 0, sound: "assets/sounds/Dindin.mp3"}] },
+      { name: "对辩", type: "duibian", background: "assets/images/12.jpg", sides: [ {label: "正方", time: 120}, {label: "反方", time: 120} ], alerts: [{time: 30, sound: "assets/sounds/30s.mp3"}, {time: 0, sound: "assets/sounds/Dindin.mp3"}] },
+      { name: "中休", time: 120, background: "assets/images/13.jpg", alerts: [{time: 30, sound: "assets/sounds/30s.mp3"}, {time: 0, sound: "assets/sounds/Dindin.mp3"}] },
+      { name: "总结", time: 180, background: "assets/images/14.jpg", alerts: [{time: 30, sound: "assets/sounds/30s.mp3"}, {time: 0, sound: "assets/sounds/Dindin.mp3"}] },
+      { name: "总结", time: 180, background: "assets/images/15.jpg", alerts: [{time: 30, sound: "assets/sounds/30s.mp3"}, {time: 0, sound: "assets/sounds/Dindin.mp3"}] },
+      { name: "队伍缓冲", type: "duibian", background: "assets/images/16.jpg", sides: [ {label: "正方", time: 300}, {label: "反方", time: 300} ], alerts: [{time: 30, sound: "assets/sounds/30s.mp3"}, {time: 0, sound: "assets/sounds/Dindin.mp3"}] },
+      { name: "评审缓冲", time: 1, background: "assets/images/17.jpg", alerts: [] },
+      { name: "点评", time: 600, background: "assets/images/18.jpg", alerts: [{time: 30, sound: "assets/sounds/30s.mp3"}, {time: 0, sound: "assets/sounds/Dindin.mp3"}] },
+      { name: "补充", time: 120, background: "assets/images/19.jpg", alerts: [{time: 30, sound: "assets/sounds/30s.mp3"}, {time: 0, sound: "assets/sounds/Dindin.mp3"}] },
       { name: "赛果公布", time: 1, background: "assets/images/39.jpg", alerts: [] }
     ];
 
